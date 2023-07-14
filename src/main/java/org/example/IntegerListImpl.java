@@ -2,19 +2,18 @@ package org.example;
 
 import java.util.Arrays;
 
-public abstract class StringListImpl implements StringList {
-
-    private final String[] storage;
+public abstract class IntegerListImpl implements StringList{
+    private final Integer[] storage;
     private int size;
 
-    public StringListImpl() {
-        storage = new String[10];
+    public IntegerListImpl() {
+        storage = new Integer[10];
     }
-    public StringListImpl(int initSize) {
-        storage = new String[initSize];
+    public IntegerListImpl(int initSize) {
+        storage = new Integer[initSize];
     }
 
-    private void validateItem(String item) {
+    private void validateItem(Integer item) {
         if (item == null) {
             throw new NullItemException();
         }
@@ -33,7 +32,7 @@ public abstract class StringListImpl implements StringList {
     }
 
     @Override
-    public String add(String item) {
+    public Integer add(Integer item) {
         validateSize();
         validateItem(item);
         storage[size++]=item;
@@ -41,7 +40,7 @@ public abstract class StringListImpl implements StringList {
     }
 
     @Override
-    public String add(int index, String item) {
+    public Integer add(int index, Integer item) {
         validateSize();
         validateItem(item);
         validateIndex(index);
@@ -56,7 +55,7 @@ public abstract class StringListImpl implements StringList {
     }
 
     @Override
-    public String set(int index, String item) {
+    public Integer set(int index, Integer item) {
         validateIndex(index);
         validateItem(item);
         storage[index]=item;
@@ -64,16 +63,22 @@ public abstract class StringListImpl implements StringList {
     }
 
     @Override
-    public String remove(String item) {
+    public Integer remove(Integer item) {
         validateItem(item);
         int index = indexOf(item);
         return remove(index);
     }
 
+
     @Override
-    public String remove(int index) {
+    public Integer remove(Integer item) {
+        return remove(0);
+    }
+
+    @Override
+    public Integer remove(int index) {
         validateIndex(index);
-        String item = storage[index];
+        Integer item = storage[index];
         if (index != size) {
             System.arraycopy(storage,index+1,storage,index,size-index);
         }
@@ -81,13 +86,14 @@ public abstract class StringListImpl implements StringList {
         return item;
     }
 
+
     @Override
-    public boolean contains(String item) {
+    public boolean contains(Integer item) {
         return indexOf(item) != -1;
     }
 
     @Override
-    public int indexOf(String item) {
+    public int indexOf(Integer item) {
         for (int i = 0; i < size; i++) {
             if (storage[i].equals(item)) {
                 return 1;
@@ -97,7 +103,7 @@ public abstract class StringListImpl implements StringList {
     }
 
     @Override
-    public int lastIndexOf(String item) {
+    public int lastIndexOf(Integer item) {
         for (int i = size-1; i >= 0; i--) {
             if (storage[i].equals(item)) {
                 return 1;
@@ -114,7 +120,7 @@ public abstract class StringListImpl implements StringList {
     }
 
     @Override
-    public boolean equals(StringList otherList) {
+    public boolean equals(IntegerList otherList) {
         return Arrays.equals(this.toArray(),otherList.toArray());
     }
 
@@ -137,4 +143,5 @@ public abstract class StringListImpl implements StringList {
     public Integer[] toArray() {
         return Arrays.copyOf(storage, size);
     }
+
 }
